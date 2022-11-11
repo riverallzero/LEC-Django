@@ -1,0 +1,23 @@
+{% extends "todo_app/base.html" %}
+{% block content %}
+
+<hr class="my-4">
+<h3 class="display-4"><a href="/todo/"><i class="fa-solid fa-house-chimney"></i></a> <strong>Todo : {{ title }}</strong></h3>
+<hr class="my-4">
+
+<div class="card">
+  <h5 class="card-header">Add List title</h5>
+  <div class="card-body">
+      <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+                <input value="Save" type="submit" class="btn btn-danger btn-md">
+                <button type="button" class="btn btn-dark btn-md" data-dismiss="modal" onclick="location.href='{% url "index" %}';">Cancel</button>
+            </div>
+                <div></div>
+        </form><br>
+  </div>
+</div>
+
+{% endblock %}

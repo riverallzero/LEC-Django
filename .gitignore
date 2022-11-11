@@ -1,0 +1,12 @@
+﻿.idea
+todo_app/migrations/__pycache__
+todo_app/__pycache__
+single_pages/__pycache__
+SED_prj/__pycache__
+blog/migrations/__pycache__
+single_pages/migrations/__pycache__
+blog/__pycache__
+db.sqlite3
+blog/migrations
+single_pages/migrations
+todo_app/migrations

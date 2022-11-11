@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Do it Django</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">Do It Django</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/blog/">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/todo/">Todo</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-8 col-lg-9" id="main-area">
+
+            <h1>
+                Blog
+            </h1>
+            <!-- Blog Post -->
+            {% if post_list.exists %}
+                {% for p in post_list %}
+                    <!-- Blog Post -->
+                    <div class="card mb-4">
+                        {% if p.head_image %}
+                            <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image">
+                        {% else %}
+                            <img class="card-img-top" src="https://picsum.photos/seed/{{ p.get_seed }}/800/200"
+                                 alt="random_image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h2 class="card-title">{{ p.title }}</h2>
+                            {% if p.hook_text %}
+                                <h5 class="text-muted">{{ p.hook_text }}</h5>
+                            {% endif %}
+                            <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                            <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Posted on {{ p.created_at }} by
+                            <a href="#">{{ p.author | upper }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <h3>아직 게시물이 없습니다.</h3>
+            {% endif %}
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=2">&larr; Older</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Search</h5>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." id="search-input">
+                        <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button" onclick="searchPost();">Go!</button>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="card my-4" id="categories-card">
+                <h5 class="card-header">Categories</h5>
+                <div class="card-body">
+                    <div class="row">
+
+                        <ul>
+
+                            <li>
+                                <a href="#">HTML</a>
+                            </li>
+
+                            <li>
+                                <a href="#">CSS</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

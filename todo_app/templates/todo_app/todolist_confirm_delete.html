@@ -1,0 +1,19 @@
+{% extends "todo_app/base.html" %}
+{% block content %}
+
+<hr class="my-4">
+<h3 class="display-4"><a href="/todo/"><i class="fa-solid fa-house-chimney"></i></a> <strong>Todo : Delete List</strong></h3>
+<hr class="my-4">
+
+<h3>Are you sure you want to delete the list <i>{{ object.title }}</i> ?</h3>
+<br>
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+        <input value="Yes, delete." type="submit" class="btn btn-danger btn-mg">
+        <button type="button" class="btn btn-dark btn-md btn-block" onclick="location.href='{% url "index" %}';">Cancel</button>
+    </div>
+</form><br>
+
+{% endblock %}

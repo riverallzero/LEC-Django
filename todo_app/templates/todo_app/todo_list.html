@@ -1,0 +1,23 @@
+{% extends "todo_app/base.html" %}
+{% block content %}
+
+<hr class="my-4">
+<h3 class="display-4"><a href="/todo/"><i class="fa-solid fa-house-chimney"></i></a> <strong>Todo List : {{ todo_list.title | upper }}</strong></h3>
+<hr class="my-4">
+<h3>| Item |</h3>
+    <ul>
+        {% for todo in object_list %}
+        <li>
+            <button type="button" class="btn btn-outline-dark btn-block" data-dismiss="modal" onclick="location.href='{% url "item-update" todo_list.id todo.id %}'">{{ todo.title }}(Due {{ todo.due_date | date:"l, F j" }})</button>
+        </li>
+        {% empty %}
+        <p>There are no to-do items in this list.</p>
+        {% endfor %}
+    </ul>
+    <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary btn-lg" onclick="location.href='{% url "item-add" todo_list.id %}'">Add a new item</button>
+      <button type="button" class="btn btn-danger btn-lg" onclick="location.href='{% url "list-delete" todo_list.id %}'">Delete this list</button>
+    </div>
+
+
+{% endblock %}

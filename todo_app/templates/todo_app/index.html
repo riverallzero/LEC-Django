@@ -1,0 +1,40 @@
+{% extends "todo_app/base.html" %}
+{% block content %}
+{% if object_list %}
+
+<hr class="my-4">
+<h1 class="display-4"><strong>Django Todo App</strong></h1>
+<p class="lead">
+    Django를 이용한 Todo앱입니다. Add a new list 버튼을 눌러 새로운 Todo List를 생성할 수 있으며 List안에 항목을 추가할 수 있습니다. List 제목을 누르면 상세 항목 페이지가 로드됩니다.
+</p>
+<hr class="my-4">
+
+<div class="card">
+  <h5 class="card-header">All my lists</h5>
+  <div class="card-body">
+    <h3>
+        {% endif %}
+        <ul>{% for todolist in object_list %}
+            <li>
+                <button type="button" class="btn btn-outline-dark btn-block" data-dismiss="modal" onclick="location.href='{% url "list" todolist.id %}'">{{ todolist.title }}</button>
+            </li>
+        {% empty %}
+
+        <hr class="my-4">
+        <h1 class="display-4"><strong>Django Todo App</strong></h1>
+        <p class="lead">
+            Django를 이용한 Todo앱입니다. Add a new list 버튼을 눌러 새로운 Todo List를 생성할 수 있으며 List안에 항목을 추가할 수 있습니다. List 제목을 누르면 상세 항목 페이지가 로드됩니다.
+        </p>
+        <hr class="my-4">
+        <h4>You have no lists!</h4>
+        {% endfor %}
+        </ul>
+    </h3>
+
+    <p class="lead">
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" onclick="location.href='{% url "list-add" %}'">Add a new list</button>
+    </p>
+  </div>
+</div>
+
+{% endblock %}
