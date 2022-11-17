@@ -1,193 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "blog/base.html" %}
+{% block title %}
+<title>{{ post.title }} - Blog</title>
+{% endblock %}
 
-<head>
+{% block contents %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <div id="post-area">
+        {% if post.category %}
+            <span class="badge badge-secondary float-right">{{ post.category }}</span>
+        {% else %}
+            <span class="badge badge-secondary float-right">미분류</span>
+        {% endif %}
+        <!-- Title -->
+        <h1 class="mt-4">{{ post.title }}</h1>
 
-    <title>{{ post.title }} - Blog</title>
+        <!-- Author -->
+        <p class="lead">
+            by
+            <a href="#">{{ post.author | upper }}</a>
+        </p>
+        <hr>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-</head>
+        <!-- Date/Time -->
+        <p>{{ post.created_at }}</p>
 
-<body>
+        <hr>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="/">Do It Django</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/blog/">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/todo/">Todo</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
+        <!-- Preview Image -->
+        {% if post.head_image %}
+            <img src="{{ post.head_image.url }}" alt="{{ post }} head image">
+        {% else %}
+            <img src="https://picsum.photos/seed/{{ post.get_seed }}/730/200" alt="random image">
+        {% endif %}
+        <hr>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
-                </li>
-
-            </ul>
-        </div>
+        <!-- Post Content -->
+        <p>{{ post.content }}</p>
     </div>
-</nav>
 
-<div class="container my-3">
-    <div class="row">
-        <div class="col-md-8 col-lg-9" id="main-area">
-
-            <div id="post-area">
-                <!-- Title -->
-                <h1 class="mt-4">{{ post.title }}</h1>
-
-                <!-- Author -->
-                <p class="lead">
-                    by
-                    <a href="#">{{ post.author | upper }}</a>
-                </p>
-                <hr>
-
-                <!-- Date/Time -->
-                <p>{{ post.created_at }}</p>
-
-                <hr>
-
-                <!-- Preview Image -->
-                {% if post.head_image %}
-                    <img src="{{ post.head_image.url }}" alt="{{ post }} head image">
-                {% else %}
-                    <img src="https://picsum.photos/seed/{{ post.get_seed }}/730/200" alt="random image">
-                {% endif %}
-                <hr>
-
-                <!-- Post Content -->
-                <p>{{ post.content }}</p>
-            </div>
-
-            <div id="comment-area">
-                <!-- Comments Form -->
-                <div class="card my-4">
-                    <h5 class="card-header">Leave a Comment:</h5>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <textarea class="form-control" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+    <div id="comment-area">
+        <!-- Comments Form -->
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3"></textarea>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
 
-                <!-- Single Comment -->
-                <div class="media mb-4">
+        <!-- Single Comment -->
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                Cras
+                purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
+                nisi
+                vulputate fringilla. Donec lacinia congue felis in faucibus.
+            </div>
+        </div>
+
+        <!-- Comment with nested comments -->
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                Cras
+                purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
+                nisi
+                vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+                <div class="media mt-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
                         <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                        Cras
-                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                        nisi
-                        vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                        sollicitudin.
+                        Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
+                        condimentum
+                        nunc
+                        ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                     </div>
                 </div>
 
-                <!-- Comment with nested comments -->
-                <div class="media mb-4">
+                <div class="media mt-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
                         <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                        Cras
-                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                        nisi
-                        vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                            <div class="media-body">
-                                <h5 class="mt-0">Commenter Name</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                sollicitudin.
-                                Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                condimentum
-                                nunc
-                                ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                            <div class="media-body">
-                                <h5 class="mt-0">Commenter Name</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                sollicitudin.
-                                Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                condimentum
-                                nunc
-                                ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4 col-lg-3">
-            <!-- Search Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Search</h5>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..." id="search-input">
-                        <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button" onclick="searchPost();">Go!</button>
-                            </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Categories Widget -->
-            <div class="card my-4" id="categories-card">
-                <h5 class="card-header">Categories</h5>
-                <div class="card-body">
-                    <div class="row">
-
-                        <ul>
-
-                            <li>
-                                <a href="#">HTML</a>
-                            </li>
-
-                            <li>
-                                <a href="#">CSS</a>
-                            </li>
-                        </ul>
-
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                        sollicitudin.
+                        Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
+                        condimentum
+                        nunc
+                        ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
 
-</body>
-
-</html>
+{% endblock %}
