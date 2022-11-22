@@ -76,3 +76,12 @@ Out[7]: 3
 In [8]: Category.objects.all()
 Out[8]: <QuerySet [<Category: 문화 & 예술>, <Category: 일상>, <Category: 스마트팜>]>
 ```
+
+## Error 해결법
+Error 명 | django.db.utils.OperationalError: no such table: blog_post
+```text
+python manage.py migrate --run-syncdb
+```
+
+## TDD (GitHub link)
+https://github.com/saintdragon2/do_it_django_a_to_z/commits/master/blog/tests.py
